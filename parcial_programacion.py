@@ -39,7 +39,20 @@
 # productos, utilizando la función map. Los productos actualizados se
 # guardan en el archivo "Insumos.csv".
 # 10. Salir del programa
+# 11. Agregar producto a la lista
+# 12. 
 # Nota: Utilizar las funciones filter y reduce cuando sea necesario.
+
+
+# 1.El programa deberá permitir agregar un nuevo producto a la lista (mediante una
+# nueva opción de menú).
+# Al momento de ingresar la marca del producto se deberá mostrar por pantalla un
+# listado con todas las marcas disponibles. Las mismas serán cargadas al programa
+# desde el archivo marcas.txt.
+# En cuanto a las características, se podrán agregar un mínimo de una y un máximo
+# de 3.
+# 2. Agregar una opción para guardar todos los datos actualizados (incluyendo las altas).
+# El usuario elegirá el tipo de formato de exportación: csv o json.
 
 #Lucas Damian Carabajal Silva
 #DIV-A LABORATORIO
@@ -118,6 +131,16 @@ while True: #while True para que el codigo sea constante y no se ejecute una sol
             if salir == "s":
                 break
         
+        case "11":
+            if flag_lista_cargada:
+                agregarInsumo(lista_insumos)
+            else:
+                print("no se puede agregar cosas en lista sin cargar la lista primero (opcion 1)")
+        case "12":
+            if flag_lista_cargada:
+                guardaElementos(lista_insumos)
+            else:
+                print("no se puede agregar cosas en lista sin cargar la lista primero (opcion 1)")
         #Esta opcion es por si el usuario pone cualquier cosa
         case _default:
             print("esa opcion no existe!")

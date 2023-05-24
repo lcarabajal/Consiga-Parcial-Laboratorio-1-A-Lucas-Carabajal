@@ -26,7 +26,10 @@ def menu_veterinario()->str:
     9. Actualizar precios: Aplica un aumento del 8.4%, a todos los
     productos, utilizando la función map. Los productos actualizados se
     guardan en el archivo "Insumos.csv".
-    10. Salir del programa 
+    10. Salir del programa
+    11. Agregar producto a la lista
+    12.Agregar una opción para guardar todos los datos actualizados (incluyendo las altas).
+    El usuario elegirá el tipo de formato de exportación: csv o json. 
     """)
     
     opcion = input("Ingrese opcion: ")
@@ -309,4 +312,93 @@ def aumentoPrecio(lista:list):
             insumo['precio'] = precios_aumentados[contador]       
             nuevaLinea = f"{insumo['id']},{insumo['nombre']},{insumo['marca']},${insumo['precio']},{insumo['descripcion']}\n"
             archivo.write(nuevaLinea)
+            
+def agregarInsumo(lista:list):
+    # 1.El programa deberá permitir agregar un nuevo producto a la lista (mediante una
+    # nueva opción de menú).
+    # Al momento de ingresar la marca del producto se deberá mostrar por pantalla un
+    # listado con todas las marcas disponibles. Las mismas serán cargadas al programa
+    # desde el archivo marcas.txt.
+    # En cuanto a las características, se podrán agregar un mínimo de una y un máximo
+    # de 3.
+    tam = len(lista)
+    diccionario_insumo_nuevo = {}
+    while True:
+        diccionario_insumo_nuevo['id'] = input("Ingrese el id del nuevo producto: ")
+        if int(diccionario_insumo_nuevo['id']) > tam:
+            break
+        else:
+            print("El id ingresado ya fue utilizado")
+            
+    diccionario_insumo_nuevo['nombre'] = input("Ingrese el nombre del nuevo producto: ").capitalize()
+    
+    with open("marcas.txt", "r", encoding="utf8") as texto:
+        print("         MARCAS       ")
+        print("----------------------")
+        print(texto.read())
         
+   
+    marcas = ["Pedigree","Kong","Tetra","Sherpa","Cat dancer","Kuranda","Nutro","Bergan","Royal canin","Pro plan","Frolicat","Purina","Ruffwear"]
+
+    while True:
+        diccionario_insumo_nuevo['marca'] = input("Ingrese el marca del nuevo producto: ").capitalize()
+        
+        if diccionario_insumo_nuevo['marca'] in marcas:
+            break
+        else:
+            print("Esa marca no esta disponible")
+    
+    diccionario_insumo_nuevo['precio'] = input("Ingrese el precio del nuevo producto: ")
+    while True:    
+        diccionario_insumo_nuevo['descripcion'] = input("Ingrese el descripcion (minimo 1 - maximo 3) del nuevo producto(al momento de poner poner un segundo o tercer caracteristica ingrese el simbolo ~): ").capitalize()
+        patron_descripcion3 = re.compile("\w{3,20}+~\w{3,20}+~\w{3,20}")
+        patron_descripcion2 = re.compile("\w{3,20}+~\w{3,20}")
+        patron_descripcion1 = re.compile("\w{3,20}")
+
+        match3 = patron_descripcion3.search(diccionario_insumo_nuevo["descripcion"])
+        match2 = patron_descripcion2.search(diccionario_insumo_nuevo["descripcion"])
+        match1 = patron_descripcion1.search(diccionario_insumo_nuevo["descripcion"])
+
+        if(match3):
+            print("descripcion valida!")
+            break
+        elif(match2):
+            print("descripcion valida!")
+            break
+        elif(match1):
+            print("descripcion valida!")
+            break
+        else:
+            print("descripcion Invalida! (minimo 1 maximo 3 descripciones)")
+            
+    lista.append(diccionario_insumo_nuevo)
+    print("Insumo agregado a la lista con exito!")
+    
+    return(lista)    
+  
+    
+def guardaElementos(lista):
+    formato = input("Que formato de archivo desea crear ? csv/json: ").lower()
+    while True:
+        nombre = input("Que nombre quiere que tenga el archivo ? ").lower()
+        if nombre.isalpha():
+            break
+        else:
+            print("Ese nombre no es una palabra")
+ 
+    if formato == "csv":
+        with open(f"{nombre}.csv", "w", encoding="utf8") as archivo:
+              
+            for insumo in lista:
+                nuevaLinea = f"{insumo['id']},{insumo['nombre']},{insumo['marca']},${insumo['precio']},{insumo['descripcion']}\n"
+                archivo.write(nuevaLinea)      
+                
+   
+    elif formato == "json":
+        with open(f"{nombre}.json", "w", encoding="utf8") as archivo:
+            json.dump(lista, archivo, indent = 2, ensure_ascii=False , separators=(", ", " : "))
+           
+    
+    else:
+        print("Esa opcion no es valida...") 
+                   
