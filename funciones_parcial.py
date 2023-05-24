@@ -17,7 +17,7 @@ def menu_veterinario()->str:
     3. Muestra para cada marca, el nombre y
     precio de los insumos correspondientes.
     4. Buscar insumo por característica.
-    5. Listar insumos ordenados (Forma Ascendente)
+    5. Listar insumos ordenados (por marca de forma ascendente)
     6. Realizar compra
     7. Genera un archivo JSON con todos los
     productos cuyo nombre contiene la palabra "Alimento".
