@@ -246,7 +246,7 @@ def realizarCompra(lista:list):
                     
                     
                     else:
-                        with open("D:\\Users\\lucas\\Desktop\\Consiga Parcial Laboratorio 1-A Lucas Carabajal\\Recibo.txt","w",encoding="utf8") as recibo:
+                        with open("D:\\Users\\lucas\\Desktop\\Consigna Parcial Laboratorio 1-A Lucas Carabajal\\Recibo.txt","w",encoding="utf8") as recibo:
                             mensaje = f"""
                                         RECIBO DE COMPRA
                             --------------------------------------------
@@ -281,7 +281,7 @@ def encontrarNombre(lista:list):
         if re.match("Alimento",insumo['nombre']):
             lista_Alimentos.append(insumo)
                       
-    with open("D:\\Users\\lucas\\Desktop\\Consiga Parcial Laboratorio 1-A Lucas Carabajal\\lista_alimentos.json","w",encoding="utf8") as alimentos:
+    with open("D:\\Users\\lucas\\Desktop\\Consigna Parcial Laboratorio 1-A Lucas Carabajal\\lista_alimentos.json","w",encoding="utf8") as alimentos:
         json.dump(lista_Alimentos, alimentos, indent = 2, ensure_ascii=False , separators=(", ", " : ")) #Aca tuve que deshabilitar el formato ascii porque sino salian \u00f3 en el medio del texto   
         print("El Archivo json se a creado con exito!")
       
